@@ -1,0 +1,36 @@
+# config/database.yml
+
+DEFAULTS: &DEFAULTS
+  adapter:   <%= ENV['TOUR_SCHEDULER_ADAPTER'] || 'mysql2'    %>
+  encoding:  <%= ENV['TOUR_SCHEDULER_ENCODE' ] || 'utf8'      %>
+  host:      <%= ENV['TOUR_SCHEDULER_DBHOST' ] || 'localhost' %>
+  username:  <%= ENV['TOUR_SCHEDULER_DBUSER' ] || 'root'      %>
+  password:  <%= ENV['TOUR_SCHEDULER_DBPASS' ] || ''          %>
+  pool:      <%= ENV['TOUR_SCHEDULER_DBPOOL' ] || '5'         %>
+  reconnect: <%= ENV['TOUR_SCHEDULER_DBRECON'] || false       %>
+
+DEV: &DEV
+  <<: *DEFAULTS
+
+development:
+  <<: *DEV
+  database: <%= ENV['TOUR_SCHEDULER_DEVELOPMENT_DBNAME'] || 'tour_scheduler_development' %>
+
+# Warning: The database defined as "test" will be erased and re-generated from your development database when you run "rake".
+# Do not set this db to be the same as development or production!  It will hurt.
+TEST: &TEST
+  <<: *DEFAULTS
+
+test: &test
+  <<: *TEST
+  database: <%= ENV['TOUR_SCHEDULER_TEST_DBNAME'] || 'tour_scheduler_test' %>
+
+PROD: &PROD
+  <<: *DEFAULTS
+  
+production:
+  <<: *PROD
+  database: <%= ENV['TOUR_SCHEDULER_PRODUCTION_DBNAME'] || 'tour_scheduler_production' %>
+
+cucumber:
+  <<: *test

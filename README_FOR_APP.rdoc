@@ -1,0 +1,110 @@
+= Tour Scheduler
+
+== Task Description
+
+Create this simple Rails application (sinatra or any other rack framework is also acceptable). Write functional code in the most efficient
+manner and with your best workmanship. Do not worry about how long this takes you; focus on showing us clear logic, best practices and your
+methodologies/design patterns – your choice of these is part of the review process. Don't try to future-proof the app, either.
+We're fans of simple, concise code. As always, security is an issue.
+You're building a website that has a "tour scheduling" feature:
+
+1. User requests a tour, and provides their email address. We send an activation email.
+2. User clinks link in activation email, which takes them to a form where they enter their first name, last name and phone number.  When submitting that, they're shown another form.
+3. This form asks for some extra details: preferred tour date, additional questions (nothing fancy, a basic string will work), and asks them to choose a list of amenities they're interested in (use this list for demonstration purposes: "pool", "rec room", "movie theater", "on site doctor", "time machine").
+4. Once this last form is submitted they should be presented with a success screen and a confirmation email should be sent to the user.  A "New Tour Scheduled" email should be delivered to tours@example.com with the users information, their requested tour information and the IP address used to request the tour.
+5. If the user clicks the same link again, they should be presented with their already submitted data (except the ip address), with an opportunity to rate their experience at the tour on a scale of 1-5.
+
+Views don't need to be styled in any way; plain HTML elements with no CSS at all is fine. You can use whatever gems or plugins you want.
+
+When you're done, put it on GitHub as an app that we can run. If you need a private repo for this test let us know and we can provide one.
+
+Include a readme with whatever it takes to get it up and running.
+
+== Account Setup
+
+rails generate session_migration
+
+The username and password/passphrase for Capistrano, MySQL, RabbitMQ, and the anonymous_proxy system itself are located in:
+
+  anonymous-proxy-staging.webuildpages.com:/home/anonymous_proxy/.my.cnf
+  anonymous-proxy-staging.webuildpages.com:/home/anonymous_proxy/.ssh/.anonymous_proxy_setup.sh
+
+The .anonymous_proxy_setup.sh file must be copied to ~/rails/anonymous_proxy/shared/, and must always be protected 600.
+
+  mkdir -p ~/rails/anonymous_proxy/shared
+  cp ~/.ssh/.anonymous_proxy_setup.sh ~/rails/anonymous_proxy/rails/anonymous_proxy/shared/
+  chmod 600 ~/rails/anonymous_proxy/rails/anonymous_proxy/shared/.anonymous_proxy_setup.sh
+
+
+== Required Support Software
+
+The Tour Scheduler application requires the following minimum versions of support software:
+
+=== Ruby
+
+The current MRI version is 1.9.3-p194.
+
+=== MySQL 5.1 or 5.5
+
+The Anonymous Proxy service has been tested on MySQL v 5.1.41 and MySQL 5.5.20.
+
+See anonymous-proxy-staging.webuildpages.com:/home/anonymous_proxy/.my.cnf for the username and password that must be created:
+
+  mysql> create database anoymous_proxy_production;
+  mysql> create user 'ap_dbworker@localhost' identified by <password>;
+  mysql> grant all on anonymous_proxy_production.* to 'ap_dbworker@localhost';
+  
+=== Nginx 0.7.65 (1.0.8 on OS X)
+
+The vhost configration files for Nginx are located in lib/scripts/anonymous-proxy-staging.webuildpages.com
+
+  sudo cp /etc/nginx/sites-available/anonymous-proxy-staging.webuildpages.com
+  sudo ln -nfs  /etc/nginx/sites-available/anonymous-proxy-staging.webuildpages.com /etc/nginx/sites-enabled/
+
+
+== Deploying the Anonymous Proxy Service with Capistrano
+
+Capistrano is used to deploy the Anonymous Proxy service.  There is currently a bug in Net::SSH (used by Capistrano) that may prevent the system from being deployed.  The id_rsa_anonymous_proxy RSA key must be loaded into the ssh-agent, and it MUST be one of the first 5 entries.  Net::SSH will only try to connect using the first 5 entries, and then will fail (with a "too many authentication failures for root" error).  The deploy.rb script can detect when the key is missing, but can not add it to the ssh-agent (it requires an interactive passphrase).
+
+The easiest way to insure that everything works is to insure that id_rsa_anonymous_proxy is the first key:
+
+  ssh-add -D                                                                            # delete all keys
+  ssh-add ~/.ssh/id_rsa_anonymous_proxy                                                 # Add the key require by the anonymous proxy service
+  ssh-add ~/.ssh/<your key for Git access to git@github.com:wbp/anonymous_proxy>        # Add your key for github access to the repository
+
+
+== Controlling the Anonymous Proxy Service (Daemon and Manager)
+
+The Anonymous Proxy Services are controlled by Thor.  The Thor namespace for the Anonymous Proxy Services is ap.
+
+  thor ap:help
+  Tasks:
+    thor ap:daemon [start|stop|restart|status]   # Start or stop the Anonymous Proxy Daemon
+    thor ap:help [TASK]                          # Describe available tasks or one specific task
+    thor ap:manager [start|stop|restart|status]  # Start or stop the Anonymous Proxy Manager
+    thor ap:server [start|stop|restart|status]   # Start or stop the Anonymous Proxy Daemon and Manager
+
+==== Help for controlling both the daemon and the manager:
+
+  thor ap:help server
+  Usage:
+    thor ap:server [start|stop|restart|status]
+
+  Options:
+    -A, --daemon-address, [--daddress=Host name or IP address]   
+                                                                 # Default: 127.0.0.1
+    -a, --manager-address, [--maddress=Host name or IP address]  
+                                                                 # Default: 127.0.0.1
+    -d, --[no-]daemonize, [--daemonize=Run as daemon]            
+                                                                 # Default: true
+    -j, --[no-]jruby, [--jruby=Use JRuby instead of MRI]         
+                                                                 # Default: false
+    -e, --environment, [--environment=Rails environment]         
+                                                                 # Default: development
+    -P, --daemon-port, [--dport=Daemon Port number]              
+                                                                 # Default: 12065
+    -p, --manager-port, [--mport=Manager Port number]            
+                                                                 # Default: 12066
+    -s, --servers, [--servers=Number of servers to run]          
+                                                                 # Default: 1
+

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>File: Gemfile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table border='0' cellpadding='0' cellspacing='0' width="100%" class='banner'>
+    <tr><td>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0'><tr>
+      <td class="file-title" colspan="2"><span class="file-title-prefix">File</span><br />Gemfile</td>
+      <td align="right">
+        <table border='0' cellspacing="0" cellpadding="2">
+          <tr>
+            <td>Path:</td>
+            <td>Gemfile            </td>
+          </tr>
+          <tr>
+            <td>Modified:</td>
+            <td>2012-07-01 22:14:15 -0600</td>
+          </tr>
+        </table>
+      </td></tr>
+    </table>
+  </td></tr>
+</table><br />
+  <div id="bodyContent">
+  <div id="content">
+  <div class="description">
+<p>source ‘<a href="https://rubygems.org">rubygems.org</a>’</p>
+
+<p>gem ‘rails’, ‘3.2.6’</p>
+
+<p># Bundle edge Rails instead: # gem ‘rails’, :git =&gt;
+‘git://github.com/rails/rails.git’</p>
+
+<p>gem ‘mysql2’</p>
+
+<p># Gems used only for assets and not required # in production environments
+by default. group :assets do</p>
+
+<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">'sass-rails'</span>,   <span class="ruby-string">'~&gt; 3.2.3'</span>
+<span class="ruby-identifier">gem</span> <span class="ruby-string">'coffee-rails'</span>, <span class="ruby-string">'~&gt; 3.2.1'</span>
+
+<span class="ruby-comment"># See https://github.com/sstephenson/execjs#readme for more supported runtimes</span>
+<span class="ruby-comment"># gem 'therubyracer', :platforms =&gt; :ruby</span>
+
+<span class="ruby-identifier">gem</span> <span class="ruby-string">'uglifier'</span>, <span class="ruby-string">'&gt;= 1.0.3'</span>
+</pre>
+
+<p>end</p>
+
+<p>gem ‘jquery-rails’</p>
+
+<p># To use ActiveModel has_secure_password # gem ‘bcrypt-ruby’, ‘~&gt; 3.0.0’</p>
+
+<p># To use Jbuilder templates for JSON # gem ‘jbuilder’</p>
+
+<p># Use unicorn as the app server # gem ‘unicorn’</p>
+
+<p># Deploy with Capistrano gem ‘capistrano’</p>
+
+<p># To use debugger # gem ‘debugger’</p>
+
+<p>group :development do</p>
+
+<pre>gem 'horo'
+gem 'pry'</pre>
+
+<p>end</p>
+
+<p>group :test do</p>
+
+<pre>gem 'cucumber-rails'
+gem 'factory_girl_rails'
+gem 'rspec-rails'</pre>
+
+<p>end</p>
+</div>
+  </div>
+</div>
+  </body>
+</html>
