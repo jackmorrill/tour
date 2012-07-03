@@ -20,91 +20,24 @@ When you're done, put it on GitHub as an app that we can run. If you need a priv
 
 Include a readme with whatever it takes to get it up and running.
 
-== Account Setup
+== Setup
 
-rails generate session_migration
+This app uses the default Rails 3.2.6 database, MySQL, and a unique database user and password.
 
-The username and password/passphrase for Capistrano, MySQL, RabbitMQ, and the anonymous_proxy system itself are located in:
+  mysql -u root -p
+  mysql> create database tour_scheduler_development;
+  mysql> create database tour_scheduler_test;
+  mysql> create database tour_scheduler_production;
+  mysql> create user 'tour_dbworker'@'localhost' identified by '<some_password>';
+  mysql> grant all on tour_scheduler_development.* to 'tour_dbworker'@'localhost';
+  mysql> grant all on tour_scheduler_test.* to 'tour_dbworker'@'localhost';
+  mysql> grant all on tour_scheduler_production.* to 'tour_dbworker'@'localhost';
 
-  anonymous-proxy-staging.webuildpages.com:/home/anonymous_proxy/.my.cnf
-  anonymous-proxy-staging.webuildpages.com:/home/anonymous_proxy/.ssh/.anonymous_proxy_setup.sh
+=== Define these environment variables
 
-The .anonymous_proxy_setup.sh file must be copied to ~/rails/anonymous_proxy/shared/, and must always be protected 600.
+  export TOUR_SCHEDULER_DBUSER='tour_dbworker'
+  export TOUR_SCHEDULER_DBPASS='<some_password>'
 
-  mkdir -p ~/rails/anonymous_proxy/shared
-  cp ~/.ssh/.anonymous_proxy_setup.sh ~/rails/anonymous_proxy/rails/anonymous_proxy/shared/
-  chmod 600 ~/rails/anonymous_proxy/rails/anonymous_proxy/shared/.anonymous_proxy_setup.sh
+=== Run the migrations
 
-
-== Required Support Software
-
-The Tour Scheduler application requires the following minimum versions of support software:
-
-=== Ruby
-
-The current MRI version is 1.9.3-p194.
-
-=== MySQL 5.1 or 5.5
-
-The Anonymous Proxy service has been tested on MySQL v 5.1.41 and MySQL 5.5.20.
-
-See anonymous-proxy-staging.webuildpages.com:/home/anonymous_proxy/.my.cnf for the username and password that must be created:
-
-  mysql> create database anoymous_proxy_production;
-  mysql> create user 'ap_dbworker@localhost' identified by <password>;
-  mysql> grant all on anonymous_proxy_production.* to 'ap_dbworker@localhost';
-  
-=== Nginx 0.7.65 (1.0.8 on OS X)
-
-The vhost configration files for Nginx are located in lib/scripts/anonymous-proxy-staging.webuildpages.com
-
-  sudo cp /etc/nginx/sites-available/anonymous-proxy-staging.webuildpages.com
-  sudo ln -nfs  /etc/nginx/sites-available/anonymous-proxy-staging.webuildpages.com /etc/nginx/sites-enabled/
-
-
-== Deploying the Anonymous Proxy Service with Capistrano
-
-Capistrano is used to deploy the Anonymous Proxy service.  There is currently a bug in Net::SSH (used by Capistrano) that may prevent the system from being deployed.  The id_rsa_anonymous_proxy RSA key must be loaded into the ssh-agent, and it MUST be one of the first 5 entries.  Net::SSH will only try to connect using the first 5 entries, and then will fail (with a "too many authentication failures for root" error).  The deploy.rb script can detect when the key is missing, but can not add it to the ssh-agent (it requires an interactive passphrase).
-
-The easiest way to insure that everything works is to insure that id_rsa_anonymous_proxy is the first key:
-
-  ssh-add -D                                                                            # delete all keys
-  ssh-add ~/.ssh/id_rsa_anonymous_proxy                                                 # Add the key require by the anonymous proxy service
-  ssh-add ~/.ssh/<your key for Git access to git@github.com:wbp/anonymous_proxy>        # Add your key for github access to the repository
-
-
-== Controlling the Anonymous Proxy Service (Daemon and Manager)
-
-The Anonymous Proxy Services are controlled by Thor.  The Thor namespace for the Anonymous Proxy Services is ap.
-
-  thor ap:help
-  Tasks:
-    thor ap:daemon [start|stop|restart|status]   # Start or stop the Anonymous Proxy Daemon
-    thor ap:help [TASK]                          # Describe available tasks or one specific task
-    thor ap:manager [start|stop|restart|status]  # Start or stop the Anonymous Proxy Manager
-    thor ap:server [start|stop|restart|status]   # Start or stop the Anonymous Proxy Daemon and Manager
-
-==== Help for controlling both the daemon and the manager:
-
-  thor ap:help server
-  Usage:
-    thor ap:server [start|stop|restart|status]
-
-  Options:
-    -A, --daemon-address, [--daddress=Host name or IP address]   
-                                                                 # Default: 127.0.0.1
-    -a, --manager-address, [--maddress=Host name or IP address]  
-                                                                 # Default: 127.0.0.1
-    -d, --[no-]daemonize, [--daemonize=Run as daemon]            
-                                                                 # Default: true
-    -j, --[no-]jruby, [--jruby=Use JRuby instead of MRI]         
-                                                                 # Default: false
-    -e, --environment, [--environment=Rails environment]         
-                                                                 # Default: development
-    -P, --daemon-port, [--dport=Daemon Port number]              
-                                                                 # Default: 12065
-    -p, --manager-port, [--mport=Manager Port number]            
-                                                                 # Default: 12066
-    -s, --servers, [--servers=Number of servers to run]          
-                                                                 # Default: 1
-
+  rake db:migrate

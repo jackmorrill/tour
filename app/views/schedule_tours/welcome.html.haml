@@ -1,0 +1,16 @@
+%h1 Welcome to the Tour Scheduler
+
+= form_for(@schedule_tour, :url => create_tour_path(@schedule_tour)) do |f|
+  -if @schedule_tour.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@schedule_tour.errors.count, "error")} prohibited this email address from being saved:"
+      %ul
+        - @schedule_tour.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    Please enter your email address
+    = f.text_field :email
+
+  .actions
+    = f.submit 'Submit'

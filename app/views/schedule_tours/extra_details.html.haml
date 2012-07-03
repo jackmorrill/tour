@@ -1,0 +1,27 @@
+%h3 Please enter your preferred tour date and any amenities you wish to visit
+
+= form_for(@schedule_tour, :url => create_extra_details_path(@schedule_tour), :method => :post) do |f|
+  = hidden_field_tag @amenities
+  -if @schedule_tour.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@schedule_tour.errors.count, "error")} prohibited this schedule_tour from being saved:"
+      %ul
+        - @schedule_tour.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :tour_date
+    = f.date_select :tour_date
+
+  %h4 Amenities
+  - AMENITIES.each do |key,name|
+    = check_box_tag "#{key}", value = name, checked = false
+    = render :text => "#{name}"
+    %br
+
+  .field
+    %h4 Comments
+    = f.text_area :comments, :cols => 80, :rows => 10
+
+  .actions
+    = f.submit 'Submit'

@@ -1,0 +1,26 @@
+%h2 Welcome back #{@schedule_tour.email}
+
+%h4 Please enter your personal information
+
+= form_for(@schedule_tour, :url => create_signup_path(@schedule_tour), :method => :post) do |f|
+  -if @schedule_tour.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@schedule_tour.errors.count, "error")} prohibited your personal information from being saved:"
+      %ul
+        - @schedule_tour.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :first_name
+    = f.text_field :first_name
+
+  .field
+    = f.label :last_name
+    = f.text_field :last_name
+
+  .field
+    = f.label :phone
+    = f.text_field :phone
+
+  .actions
+    = f.submit 'Submit'
