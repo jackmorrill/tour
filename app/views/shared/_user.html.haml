@@ -1,0 +1,14 @@
+%p First name: #{@user.first_name}
+
+%p Last name: #{@user.last_name}
+
+%p email: #{@user.email}
+
+%p Tour date: #{@user.tour_date}
+
+- if @amenities = ScheduleTour.find(@user.id).amenities
+  %p Amenities:
+  - @amenities.each do |a|
+    %p #{a.name}
+  
+%p Comments: #{@user.comments}

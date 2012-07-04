@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+  %body
+    %h2 Details of your Tour
+
+    %p First name: #{@user.first_name}
+    
+    %p Last name: #{@user.last_name}
+
+    %p email: #{@user.email}
+
+    %p Tour date: #{@user.tour_date}
+
+    = render 'shared/rate'
+
+    %p Comments: #{@user.comments}
+

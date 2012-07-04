@@ -7,5 +7,7 @@ Tour::Application.routes.draw do
   match 'schedule_tours/:id/extra_details' => 'schedule_tours#extra_details', :as => :extra_details
   match 'schedule_tours/:id/create_extra_details' => 'schedule_tours#create_extra_details', :as => :create_extra_details, :via => 'post'
   match 'schedule_tours/:id/success' => 'schedule_tours#success', :as => :success
+  match 'schedule_tours/:id/tour' => 'schedule_tours#tour', :as => :tour
+  match 'schedule_tours/:id/rate' => 'schedule_tours#rate', :as => :rate, :via => 'post'
   root :to => 'schedule_tours#welcome'
 end

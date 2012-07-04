@@ -13,8 +13,17 @@ Tour::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { :protocol => 'https' }
+  config.action_mailer.raise_delivery_errors = true  
+  ActionMailer::Base.smtp_settings = {
+  :address => ENV['TOUR_EMAILER_SMTP_ADDRESS'],
+  :port => ENV['TOUR_EMAILER_SMTP_PORT'],
+  :domain => ENV['TOUR_EMAILER_SMTP_DOMAIN'],
+  :authentication => ENV['TOUR_EMAILER_SMTP_AUTHENTICATION'],
+  :user_name => ENV['TOUR_EMAILER_SMTP_USER_NAME'],
+  :password => ENV['TOUR_EMAILER_SMTP_PASSWORD'],
+  :enable_starttls_auto => ENV['TOUR_EMAILER_SMTP_TLSAUTO']
+  }
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log

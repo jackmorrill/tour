@@ -1,0 +1,11 @@
+- if ! @schedule_tour.blank?
+  %p Satisfaction: #{@schedule_tour.satisfaction}
+-else
+  = form_for(@schedule_tour, :url => rate_path(@schedule_tour), :method => :post) do |f|
+
+    .field
+      = f.label "Please rate your satisfaction with the Tour Scheduling Service"
+      = f.select :satisfaction, options_for_select([[1,1], [2,2], [3,3], [4,4,], [5,5]])
+
+    .actions
+      = f.submit 'Submit'

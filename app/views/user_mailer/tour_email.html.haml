@@ -1,0 +1,13 @@
+!!!
+%html
+  %head
+  %body
+    %h2 Dear #{@user.first_name} #{@user.last_name}
+
+    %p Your Tour has successfully been scheduled
+
+    = render 'shared/user'
+
+    %p To view and rate your Tour experience, just follow this link: #{@url}
+
+    %p Thanks for using the Tour Scheduler and have a great day!
