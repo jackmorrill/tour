@@ -16,6 +16,7 @@ class ScheduleToursController < ApplicationController
       UserMailer.signup_email(@schedule_tour).deliver
       redirect_to thank_you_path(@schedule_tour.id)
     else
+      logger.debug("@schedule_tour.errors => #{@schedule_tour.errors.messages}")
       flash[:error] = "Please enter a valid email address"
       redirect_to :welcome
     end
@@ -28,7 +29,7 @@ class ScheduleToursController < ApplicationController
 
   def signup
     @schedule_tour = ScheduleTour.find(params[:id])
-    redirect_to :tour and return true if @schedule_tour.email
+    redirect_to :tour and return true if @schedule_tour.tour_date
     respond_with @schedule_tour
   end
 

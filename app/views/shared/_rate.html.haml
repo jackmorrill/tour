@@ -1,6 +1,5 @@
-- if ! @schedule_tour.blank?
-  %p Satisfaction: #{@schedule_tour.satisfaction}
--else
+- if @schedule_tour.satisfaction.blank?
+
   = form_for(@schedule_tour, :url => rate_path(@schedule_tour), :method => :post) do |f|
 
     .field
@@ -9,3 +8,7 @@
 
     .actions
       = f.submit 'Submit'
+
+-else
+
+  %p Satisfaction: #{@schedule_tour.satisfaction}

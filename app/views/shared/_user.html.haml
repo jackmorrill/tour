@@ -7,7 +7,9 @@
 %p Tour date: #{@user.tour_date}
 
 - if @amenities = ScheduleTour.find(@user.id).amenities
+
   %p Amenities:
+
   - @amenities.each do |a|
     %p #{a.name}
   

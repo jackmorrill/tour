@@ -24,7 +24,7 @@ describe ScheduleToursController do
   # ScheduleTour. As you add validations to ScheduleTour, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    { :email => 'user@example.com' }
   end
   
   # This should return the minimal set of values that should be in the session

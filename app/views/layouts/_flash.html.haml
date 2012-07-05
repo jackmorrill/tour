@@ -1,0 +1,10 @@
+// app/views/layouts_flash.html.haml
+
+- if flash[:error]
+  %p.error= flash[:error]
+
+- if flash[:notice]
+  %p.notice= flash[:notice]
+
+- if flash[:alert]
+  %p.alert= flash[:alert]
