@@ -34,14 +34,6 @@ describe ScheduleToursController do
     {}
   end
 
-  describe "GET index" do
-    it "assigns all schedule_tours as @schedule_tours" do
-      schedule_tour = ScheduleTour.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:schedule_tours).should eq([schedule_tour])
-    end
-  end
-
   describe "GET show" do
     it "assigns the requested schedule_tour as @schedule_tour" do
       schedule_tour = ScheduleTour.create! valid_attributes
@@ -50,9 +42,9 @@ describe ScheduleToursController do
     end
   end
 
-  describe "GET new" do
+  describe "GET welcome" do
     it "assigns a new schedule_tour as @schedule_tour" do
-      get :new, {}, valid_session
+      get :welcome, {}, valid_session
       assigns(:schedule_tour).should be_a_new(ScheduleTour)
     end
   end

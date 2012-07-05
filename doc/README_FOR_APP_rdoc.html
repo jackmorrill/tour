@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>README_FOR_APP - Tour Scheduler</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+    <li class="file"><a href="./README_FOR_APP_rdoc.html">README_FOR_APP</a>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./public/robots_txt.html">robots</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ActiveSupport.html">ActiveSupport</a>
+  
+    <li><a href="./ActiveSupport/TestCase.html">ActiveSupport::TestCase</a>
+  
+    <li><a href="./Tour.html">Tour</a>
+  
+    <li><a href="./Tour/Application.html">Tour::Application</a>
+  
+    <li><a href="./AddCommentsToScheduleTour.html">AddCommentsToScheduleTour</a>
+  
+    <li><a href="./AddScheduleTourIdToAmenity.html">AddScheduleTourIdToAmenity</a>
+  
+    <li><a href="./AddSessionsTable.html">AddSessionsTable</a>
+  
+    <li><a href="./Amenity.html">Amenity</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./BrowsingTest.html">BrowsingTest</a>
+  
+    <li><a href="./CreateAmenities.html">CreateAmenities</a>
+  
+    <li><a href="./CreateScheduleTours.html">CreateScheduleTours</a>
+  
+    <li><a href="./LayoutHelper.html">LayoutHelper</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./ScheduleTour.html">ScheduleTour</a>
+  
+    <li><a href="./ScheduleTourTest.html">ScheduleTourTest</a>
+  
+    <li><a href="./ScheduleToursController.html">ScheduleToursController</a>
+  
+    <li><a href="./ScheduleToursHelper.html">ScheduleToursHelper</a>
+  
+    <li><a href="./TourMailer.html">TourMailer</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<h1 id="label-Tour+Scheduler"><a href="Tour.html">Tour</a> Scheduler</h1>
+
+<h2 id="label-Task+Description">Task Description</h2>
+
+<p>Create this simple Rails application (sinatra or any other rack framework
+is also acceptable). Write functional code in the most efficient manner and
+with your best workmanship. Do not worry about how long this takes you;
+focus on showing us clear logic, best practices and your
+methodologies/design patterns – your choice of these is part of the review
+process. Don’t try to future-proof the app, either. We’re fans of simple,
+concise code. As always, security is an issue. You’re building a website
+that has a “tour scheduling” feature:</p>
+<ol><li>
+<p>User requests a tour, and provides their email address. We send an
+activation email.</p>
+</li><li>
+<p>User clinks link in activation email, which takes them to a form where they
+enter their first name, last name and phone number.  When submitting that,
+they’re shown another form.</p>
+</li><li>
+<p>This form asks for some extra details: preferred tour date, additional
+questions (nothing fancy, a basic string will work), and asks them to
+choose a list of amenities they’re interested in (use this list for
+demonstration purposes: “pool”, “rec room”, “movie theater”, “on site
+doctor”, “time machine”).</p>
+</li><li>
+<p>Once this last form is submitted they should be presented with a success
+screen and a confirmation email should be sent to the user.  A “New <a
+href="Tour.html">Tour</a> Scheduled” email should be delivered
+to tours@example.com with the users information, their requested tour
+information and the IP address used to request the tour.</p>
+</li><li>
+<p>If the user clicks the same link again, they should be presented with their
+already submitted data (except the ip address), with an opportunity to rate
+their experience at the tour on a scale of 1-5.</p>
+</li></ol>
+
+<p>Views don’t need to be styled in any way; plain HTML elements with no CSS
+at all is fine. You can use whatever gems or plugins you want.</p>
+
+<p>When you’re done, put it on GitHub as an app that we can run. If you need a
+private repo for this test let us know and we can provide one.</p>
+
+<p>Include a readme with whatever it takes to get it up and running.</p>
+
+<h2 id="label-Setup">Setup</h2>
+
+<p>This app uses the default Rails 3.2.6 database, MySQL, and a unique
+database user and password.</p>
+
+<pre>mysql -u root -p
+mysql&gt; create database tour_scheduler_development;
+mysql&gt; create database tour_scheduler_test;
+mysql&gt; create database tour_scheduler_production;
+mysql&gt; create user 'tour_dbworker'@'localhost' identified by 'tour_secret';
+mysql&gt; grant all on tour_scheduler_development.* to 'tour_dbworker'@'localhost';
+mysql&gt; grant all on tour_scheduler_test.* to 'tour_dbworker'@'localhost';
+mysql&gt; grant all on tour_scheduler_production.* to 'tour_dbworker'@'localhost';</pre>
+
+<h3 id="label-Define+these+environment+variables">Define these environment variables</h3>
+
+<p>I never check sensitive data into GitHub, so the app uses environment
+variables.  I usually store these in a safe place, like ~/.ssh/ or any
+directory protected 700. You will need to adjust the environment variables
+for your environment.</p>
+
+<pre>cat ~/.ssh/.tour_setup.sh
+# MySQL settings
+export TOUR_SCHEDULER_DBUSER='tour_dbworker'
+export TOUR_SCHEDULER_DBPASS='tour_secret'
+export TOUR_SCHEDULER_DEVELOPMENT_DBNAME='tour_scheduler_development'
+export TOUR_SCHEDULER_TEST_DBNAME='tour_scheduler_test'
+export TOUR_SCHEDULER_PRODUCTION_DBNAME='tour_scheduler_production'
+
+# ActionMailer settings
+export TOUR_EMAILER_SMTP_ADDRESS='smtp.gmail.com'
+export TOUR_EMAILER_SMTP_PORT=587
+export TOUR_EMAILER_SMTP_DOMAIN='jelmorrill.com'
+export TOUR_EMAILER_SMTP_AUTHENTICATION='login'
+export TOUR_EMAILER_SMTP_USER_NAME='jelmorrill@gmail.com'
+export TOUR_EMAILER_SMTP_PASSWORD='xxxxxxxxxxxxxxxxxxxxxx'
+export TOUR_EMAILER_SMTP_TLSAUTO='true'
+
+source ~/.ssh/.tour_setup.sh</pre>
+
+<h3 id="label-Run+the+migrations">Run the migrations</h3>
+
+<pre>rake db:migrate</pre>
+
+<h3 id="label-Start+the+Thin+webserver">Start the Thin webserver</h3>
+
+<pre>rails s</pre>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

@@ -28,16 +28,39 @@ This app uses the default Rails 3.2.6 database, MySQL, and a unique database use
   mysql> create database tour_scheduler_development;
   mysql> create database tour_scheduler_test;
   mysql> create database tour_scheduler_production;
-  mysql> create user 'tour_dbworker'@'localhost' identified by '<some_password>';
+  mysql> create user 'tour_dbworker'@'localhost' identified by 'tour_secret';
   mysql> grant all on tour_scheduler_development.* to 'tour_dbworker'@'localhost';
   mysql> grant all on tour_scheduler_test.* to 'tour_dbworker'@'localhost';
   mysql> grant all on tour_scheduler_production.* to 'tour_dbworker'@'localhost';
 
 === Define these environment variables
 
+I never check sensitive data into GitHub, so the app uses environment variables.  I usually store these in a safe place, like ~/.ssh/ or any directory protected 700.
+You will need to adjust the environment variables for your environment.
+
+  cat ~/.ssh/.tour_setup.sh
+  # MySQL settings
   export TOUR_SCHEDULER_DBUSER='tour_dbworker'
-  export TOUR_SCHEDULER_DBPASS='<some_password>'
+  export TOUR_SCHEDULER_DBPASS='tour_secret'
+  export TOUR_SCHEDULER_DEVELOPMENT_DBNAME='tour_scheduler_development'
+  export TOUR_SCHEDULER_TEST_DBNAME='tour_scheduler_test'
+  export TOUR_SCHEDULER_PRODUCTION_DBNAME='tour_scheduler_production'
+
+  # ActionMailer settings
+  export TOUR_EMAILER_SMTP_ADDRESS='smtp.gmail.com'
+  export TOUR_EMAILER_SMTP_PORT=587
+  export TOUR_EMAILER_SMTP_DOMAIN='jelmorrill.com'
+  export TOUR_EMAILER_SMTP_AUTHENTICATION='login'
+  export TOUR_EMAILER_SMTP_USER_NAME='jelmorrill@gmail.com'
+  export TOUR_EMAILER_SMTP_PASSWORD='xxxxxxxxxxxxxxxxxxxxxx'
+  export TOUR_EMAILER_SMTP_TLSAUTO='true'
+
+  source ~/.ssh/.tour_setup.sh
 
 === Run the migrations
 
   rake db:migrate
+
+=== Start the Thin webserver
+
+  rails s
