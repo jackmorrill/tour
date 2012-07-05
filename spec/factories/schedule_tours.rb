@@ -7,7 +7,7 @@ FactoryGirl.define do
     first_name nil
     last_name nil
     phone nil
-    ip_address nil
+    ip_address "[127.0.0.1]"
     tour_date nil
     satisfaction nil
   end

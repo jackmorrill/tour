@@ -4,7 +4,7 @@ class TourMailer < ActionMailer::Base
   def new_tour_email(user)
     @user = user
     @url  = "http://tour.example.com"
-    mail(:to => 'jelmorrill@gmail.com', :subject => "A new Tour has been scheduled")
+    mail(:to => TOUR_ADMIN_EMAIL_ADDRESS, :subject => "A new Tour has been scheduled")
   end
 
 end

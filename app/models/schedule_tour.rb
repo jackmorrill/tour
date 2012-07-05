@@ -9,7 +9,8 @@ class ScheduleTour < ActiveRecord::Base
   validates :first_name, :last_name, :format => { :with => /\A[a-z]+\Z/i, :message => "Only letters are allowed in names" }, :allow_nil => true
   validates :comments, :format => { :with => /\A[a-z0-9\.\,\;\:\"\'\&\%\$\@\!\=\?]+/i, :message => "Only letters, numbers, and normal punction are allowed in comments" }, :allow_nil => true
   validates :satisfaction, :numericality => { :only_integer => true }, :allow_nil => true
-
+  validates :ip_address, :presence => true
+  
   def add_amenities(params)
     AMENITIES.each do |key,value|
       amenity = Amenity.find_by_name_and_schedule_tour_id(value, self.id)
